@@ -1,17 +1,13 @@
 package com.product.product.controller;
 
 
-import com.product.product.dto.BrandDTO;
-import com.product.product.dto.CategoryDTO;
-import com.product.product.dto.ProductDTO;
-import com.product.product.dto.TagDTO;
-import com.product.product.model.Brand;
-import com.product.product.model.Category;
-import com.product.product.model.Product;
-import com.product.product.model.Tag;
+import com.product.product.dto.*;
+import com.product.product.model.*;
 import com.product.product.service.ProductAdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -54,7 +50,17 @@ public class AdminProductController {
 
     }
 
-    @PutMapping("/updateproduct")
+//    this is api is not working
+    @PostMapping("/addproducttag")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductTagDTO addProductTag(@RequestBody ProductTagDTO productTagDTO){
+
+
+        return productAdminService.addProductTag(productTagDTO);
+
+    }
+
+    @PatchMapping("/updateproduct")
     @ResponseStatus(HttpStatus.OK)
     public String updateProduct(){
         return "Product is updated";

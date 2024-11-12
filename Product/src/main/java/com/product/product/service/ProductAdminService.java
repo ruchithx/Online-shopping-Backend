@@ -1,21 +1,15 @@
 package com.product.product.service;
 
 
-import com.product.product.dto.BrandDTO;
-import com.product.product.dto.CategoryDTO;
-import com.product.product.dto.ProductDTO;
-import com.product.product.dto.TagDTO;
-import com.product.product.model.Brand;
-import com.product.product.model.Category;
-import com.product.product.model.Product;
-import com.product.product.model.Tag;
-import com.product.product.repo.CategoryRepository;
-import com.product.product.repo.BrandRepository;
-import com.product.product.repo.TagRepository;
-import com.product.product.repo.ProductRepository;
+import com.product.product.dto.*;
+import com.product.product.model.*;
+import com.product.product.repo.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductAdminService {
@@ -33,14 +27,18 @@ public class ProductAdminService {
     private ProductRepository ProductRepository;
 
     @Autowired
+    private ProductTagRepository productTagRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
 
-    public ProductAdminService(CategoryRepository CategoryRepository,BrandRepository BrandRepository,TagRepository TagRepository,ProductRepository ProductRepository) {
+    public ProductAdminService(CategoryRepository CategoryRepository,ProductTagRepository productTagRepository,BrandRepository BrandRepository,TagRepository TagRepository,ProductRepository ProductRepository) {
         this.CategoryRepository = CategoryRepository;
         this.BrandRepository = BrandRepository;
         this.TagRepository = TagRepository;
         this.ProductRepository = ProductRepository;
+        this.productTagRepository = productTagRepository;
     }
 
     public Category addCategory(CategoryDTO categoryDTO) {
@@ -91,4 +89,27 @@ public class ProductAdminService {
 
         return ProductRepository.save(product);
     }
+
+
+    public ProductTagDTO addProductTag( ProductTagDTO productTag){
+        ProductTag productTag1=new ProductTag();
+
+
+        Product product = ProductRepository.findById(productTag.getProductId())  .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
+        Tag tag = TagRepository.findById(productTag.getTagId())  .orElseThrow(() -> new IllegalArgumentException("Invalid tag ID"));
+
+
+        productTag1.setProduct(product);
+        productTag1.setTag(tag);
+         productTagRepository.save(productTag1);
+        return productTag;
+
+         //       return modelMapper.map(productTagRepository.save(productTag1),new TypeToken<List<ProductTagDTO>>(){}.getType()) ;
+    }
+
 }
+
+
+
+
+
