@@ -1,5 +1,6 @@
 package com.example.cart.cart;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,26 @@ public class CartService {
     public void addNewItem(CartItem cartItem) {
         cartItemRepository.save(cartItem);
 
+
+    }
+
+    public void deleteItem(Integer itemId) {
+    boolean exists= cartItemRepository.existsById(Long.valueOf(itemId));
+
+    if(!exists){
+        throw new IllegalStateException("Item does not exist");
+    }
+    cartItemRepository.deleteById(Long.valueOf(itemId));
+
+    }
+
+
+@Transactional
+    public void updateItem(Integer itemId, Double quantity) {
+    CartItem cartItem = cartItemRepository.findById(Long.valueOf(itemId))
+            .orElseThrow(() -> new IllegalStateException("Item does not exist"));
+
+    cartItem.setQuantity(quantity);
 
     }
 }
