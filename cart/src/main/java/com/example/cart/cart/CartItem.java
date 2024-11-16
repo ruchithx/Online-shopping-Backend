@@ -1,19 +1,24 @@
 package com.example.cart.cart;
 
+import jakarta.persistence.*;
+
+@Entity
 public class CartItem {
-    private Long itemId;
-    private Long cartId;
-    private Long productId;
-    private Long productName;
-    private Long productDescription;
-    private Long quantity;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Integer itemId;
+    private Integer cartId;
+    private String productId;
+    private String productName;
+    private String productDescription;
+    private Double quantity;
     private Double price;
     private Double discount;
+@ManyToOne
+private Cart cart;
 
-    public CartItem() {
-    }
 
-    public CartItem(Long itemId, Long cartId, Long productId, Long productName, Long productDescription, Long quantity, Double price, Double discount) {
+    public CartItem(Integer itemId, Integer cartId, String productId, String productName, String productDescription, Double quantity, Double price, Double discount) {
         this.itemId = itemId;
         this.cartId = cartId;
         this.productId = productId;
@@ -24,7 +29,7 @@ public class CartItem {
         this.discount = discount;
     }
 
-    public CartItem(Long cartId, Long productId, Long productName, Long productDescription, Long quantity, Double price, Double discount) {
+    public CartItem(Integer cartId, String productId, String productName, String productDescription, Double quantity, Double price, Double discount) {
         this.cartId = cartId;
         this.productId = productId;
         this.productName = productName;
@@ -34,51 +39,59 @@ public class CartItem {
         this.discount = discount;
     }
 
-    public Long getItemId() {
+    public CartItem(String s, String s1, Object o) {
+    }
+
+    public CartItem() {
+
+    }
+
+
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(Long itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
-    public Long getCartId() {
+    public Integer getCartId() {
         return cartId;
     }
 
-    public void setCartId(Long cartId) {
+    public void setCartId(Integer cartId) {
         this.cartId = cartId;
     }
 
-    public Long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public Long getProductName() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setProductName(Long productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public Long getProductDescription() {
+    public String getProductDescription() {
         return productDescription;
     }
 
-    public void setProductDescription(Long productDescription) {
+    public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
 
-    public Long getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 

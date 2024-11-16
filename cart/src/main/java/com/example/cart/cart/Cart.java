@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    private Integer cartId;
     private Long userId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -19,7 +19,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Long cartId, Long userId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Cart(Integer cartId, Long userId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.cartId = cartId;
         this.userId = userId;
         this.createdAt = createdAt;
@@ -32,11 +32,11 @@ public class Cart {
         this.updatedAt = updatedAt;
     }
 
-    public Long getCartId() {
+    public Integer getCartId() {
         return cartId;
     }
 
-    public void setCartId(Long cartId) {
+    public void setCartId(Integer cartId) {
         this.cartId = cartId;
     }
 

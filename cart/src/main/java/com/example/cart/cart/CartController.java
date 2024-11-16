@@ -1,9 +1,7 @@
 package com.example.cart.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +18,13 @@ public class CartController {
     @GetMapping
     public List<Cart> getCart(){
        return cartService.getCart();
+    }
+
+    @PostMapping("/add")
+    public void addItem(@RequestBody CartItem cartItem){
+        cartService.addNewItem(cartItem);
+
+
     }
 
 }
