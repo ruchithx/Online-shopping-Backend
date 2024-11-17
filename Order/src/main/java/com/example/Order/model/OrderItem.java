@@ -1,9 +1,8 @@
 package com.example.Order.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -15,6 +14,7 @@ public class OrderItem {
     private int id;
     private float quantity;
     @ManyToOne
+    @JsonIgnore
     private Order orderId;
     private int productId;
 
