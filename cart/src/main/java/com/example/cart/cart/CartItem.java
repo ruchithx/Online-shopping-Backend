@@ -11,14 +11,14 @@ public class CartItem {
     private String productId;
     private String productName;
     private String productDescription;
-    private Double quantity;
+    private Integer quantity;
     private Double price;
     private Double discount;
 @ManyToOne
 private Cart cart;
 
 
-    public CartItem(Integer itemId, Integer cartId, String productId, String productName, String productDescription, Double quantity, Double price, Double discount) {
+    public CartItem(Integer itemId, Integer cartId, String productId, String productName, String productDescription, Integer quantity, Double price, Double discount) {
         this.itemId = itemId;
         this.cartId = cartId;
         this.productId = productId;
@@ -29,7 +29,7 @@ private Cart cart;
         this.discount = discount;
     }
 
-    public CartItem(Integer cartId, String productId, String productName, String productDescription, Double quantity, Double price, Double discount) {
+    public CartItem(Integer cartId, String productId, String productName, String productDescription, Integer quantity, Double price, Double discount) {
         this.cartId = cartId;
         this.productId = productId;
         this.productName = productName;
@@ -87,11 +87,11 @@ private Cart cart;
         this.productDescription = productDescription;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

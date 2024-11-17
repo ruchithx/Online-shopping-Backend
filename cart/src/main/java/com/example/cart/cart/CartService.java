@@ -2,10 +2,8 @@ package com.example.cart.cart;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,11 +42,18 @@ public class CartService {
 
 
 @Transactional
-    public void updateItem(Integer itemId, Double quantity) {
+    public void updateItem(Integer itemId, Integer quantity) {
     CartItem cartItem = cartItemRepository.findById(Long.valueOf(itemId))
             .orElseThrow(() -> new IllegalStateException("Item does not exist"));
 
     cartItem.setQuantity(quantity);
+    cartItemRepository.save(cartItem);
 
+}
+
+    public List<CartItem> getCartItems() {
+        return cartItemRepository.findAll();
     }
+
+
 }

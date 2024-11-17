@@ -28,9 +28,9 @@ public class CartConfig {
 
 
             );
-            cartRepository.saveAll(
-                    List.of(cart1, cart2)
-            );
+//            cartRepository.saveAll(
+//                    List.of(cart1, cart2)
+//            );
 
             CartItem cartItem1 = new CartItem(
                    1,
@@ -38,7 +38,7 @@ public class CartConfig {
                     "1P",
                     "Cream Soda",
                     "Elephant House Cteam Soda 1L",
-                    1.0,
+                    1,
                     400.0,
                     0.1
 
@@ -46,9 +46,8 @@ public class CartConfig {
 
 
                     );
-            cartItemRepository.saveAll(
-                    List.of(cartItem1)
-            );
+
+
 
         };
     }
