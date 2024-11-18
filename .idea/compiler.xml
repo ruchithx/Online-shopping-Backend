@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/ApiGateway/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
@@ -22,5 +23,10 @@
       <module name="apigateway" options="-parameters" />
       <module name="product" options="-parameters" />
     </option>
+
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+
   </component>
 </project>
