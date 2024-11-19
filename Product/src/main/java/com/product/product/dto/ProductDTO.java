@@ -8,7 +8,7 @@ public class ProductDTO {
     private Boolean isDiscount;
     private Double discount;
     private Integer quantityInStock;
-    private String status;
+    private Boolean status;
     private Long categoryId;
     private Long brandId;
 
@@ -68,11 +68,11 @@ public class ProductDTO {
         this.quantityInStock = quantityInStock;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

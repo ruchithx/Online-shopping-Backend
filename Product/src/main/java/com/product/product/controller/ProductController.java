@@ -2,6 +2,7 @@ package com.product.product.controller;
 
 import com.product.product.dto.BrandDTO;
 import com.product.product.dto.ProductDTO;
+import com.product.product.dto.ProductDiscreseDTO;
 import com.product.product.model.Brand;
 import com.product.product.model.Category;
 import com.product.product.model.Product;
@@ -39,10 +40,10 @@ public class ProductController {
         return productService.getAllBrands();
     }
 
-    @GetMapping("/gettags")
-    public List<Tag> getTags(){
-        return productService.getAllTag();
-    }
+//    @GetMapping("/gettags")
+//    public List<Tag> getTags(){
+//        return productService.getAllTag();
+//    }
 
     @GetMapping("/getproductbyid/{id}")
     public Product getProductById(@PathVariable Long id){
@@ -59,10 +60,21 @@ public class ProductController {
         return productService.getProductByBrand(brand);
     }
 
-    @GetMapping("/getproductbytag/{tag}")
-    public String getProductByTag(@PathVariable String tag){
-        return "Product by tag is ready";
+    @GetMapping("/checkquantity/{id}/{quantity}")
+    public boolean checkQuantity(@PathVariable Long id, @PathVariable Integer quantity){
+        return productService.checkQuantity(id, quantity);
     }
+
+    @PatchMapping("/discresquantity")
+    public Product discresQuantity(@RequestBody ProductDiscreseDTO productDiscreseDTO){
+        return productService.discresQuantity(productDiscreseDTO.getProductId(), productDiscreseDTO.getQuantity());
+    }
+
+//
+//    @GetMapping("/getproductbytag/{tag}")
+//    public String getProductByTag(@PathVariable String tag){
+//        return "Product by tag is ready";
+//    }
 
 
 

@@ -43,52 +43,53 @@ public class AdminProductController {
 
     }
 
-    @PostMapping("/addtag")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Tag addTag(@RequestBody TagDTO tagDTO){
-        return productAdminService.addTag(tagDTO);
-
-    }
+//    @PostMapping("/addtag")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Tag addTag(@RequestBody TagDTO tagDTO){
+//        return productAdminService.addTag(tagDTO);
+//
+//    }
 
 //    this is api is not working
-    @PostMapping("/addproducttag")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductTagDTO addProductTag(@RequestBody ProductTagDTO productTagDTO){
-
-
-        return productAdminService.addProductTag(productTagDTO);
-
-    }
+//    @PostMapping("/addproducttag")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ProductTagDTO addProductTag(@RequestBody ProductTagDTO productTagDTO){
+//
+//
+//        return productAdminService.addProductTag(productTagDTO);
+//
+//    }
 
     @PatchMapping("/updateproduct")
-    @ResponseStatus(HttpStatus.OK)
-    public String updateProduct(){
-        return "Product is updated";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product updateProduct(@RequestBody ProductUpdateDTO productDTO){
+
+        return productAdminService.updateProduct(productDTO);
     }
 
-    @PatchMapping("{id}/price")
-    @ResponseStatus(HttpStatus.OK)
-    public String updatePrice(@PathVariable Long id){
-        return "Price is updated";
-    }
-
-    @PatchMapping("{id}/discount")
-    @ResponseStatus(HttpStatus.OK)
-    public String updateDiscount(@PathVariable Long id){
-        return "Discount is updated";
-    }
-
-    @PatchMapping("{id}/quantityInStock")
-    @ResponseStatus(HttpStatus.OK)
-    public String updateQuantityInStock(@PathVariable Long id){
-        return "Quantity in stock is updated";
-    }
-
-    @PatchMapping("{id}/status")
-    @ResponseStatus(HttpStatus.OK)
-    public String updateStatus(@PathVariable Long id){
-        return "Status is updated";
-    }
+//    @PatchMapping("{id}/price")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String updatePrice(@PathVariable Long id){
+//        return "Price is updated";
+//    }
+//
+//    @PatchMapping("{id}/discount")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String updateDiscount(@PathVariable Long id){
+//        return "Discount is updated";
+//    }
+//
+//    @PatchMapping("{id}/quantityInStock")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String updateQuantityInStock(@PathVariable Long id){
+//        return "Quantity in stock is updated";
+//    }
+//
+//    @PatchMapping("{id}/status")
+//    @ResponseStatus(HttpStatus.OK)
+//    public String updateStatus(@PathVariable Long id){
+//        return "Status is updated";
+//    }
 
 
 
