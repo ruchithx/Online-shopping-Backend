@@ -17,7 +17,7 @@ public class Product {
     private Boolean isDiscount;
     private Double discount;
     private Integer quantityInStock;
-    private String status; // sale or not
+    private Boolean status; // sale or not
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -114,11 +114,11 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

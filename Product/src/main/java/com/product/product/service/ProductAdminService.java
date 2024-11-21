@@ -107,6 +107,33 @@ public class ProductAdminService {
          //       return modelMapper.map(productTagRepository.save(productTag1),new TypeToken<List<ProductTagDTO>>(){}.getType()) ;
     }
 
+    public Product updateProduct(ProductUpdateDTO productDTO) {
+        Product product = ProductRepository.findById(productDTO.getProductId()).orElse(null);
+
+        if(product == null) {
+            return null;
+        }
+
+        product.setProductName(productDTO.getProductName());
+        product.setProductDescription(productDTO.getProductDescription());
+        product.setProductPrice(productDTO.getProductPrice());
+        product.setQuantityInStock(productDTO.getQuantityInStock());
+//        product.setSKU(productDTO.getSKU());
+        product.setIsDiscount(productDTO.getIsDiscount());
+        product.setDiscount(productDTO.getDiscount());
+//        product.setIsDiscount(productDTO.getDiscount());
+//        product.setDiscount(productDTO.getDiscount());
+//        product.setStatus(productDTO.getStatus());
+
+//        Category category = CategoryRepository.findById(productDTO.getCategoryId())  .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+//        product.setCategory(category);
+//
+//        Brand brand = BrandRepository.findById(productDTO.getBrandId())  .orElseThrow(() -> new IllegalArgumentException("Invalid brand ID"));
+//        product.setBrand(brand);
+
+        return ProductRepository.save(product);
+    }
+
 }
 
 

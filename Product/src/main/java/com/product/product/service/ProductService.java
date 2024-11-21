@@ -60,6 +60,25 @@ public class ProductService {
     public List<ProductDTO> getProductByBrand(String brand) {
         return modelMapper.map(productRepository.findByBrand(brand),new TypeToken<List<ProductDTO>>(){}.getType());
     }
+    
+    public boolean checkQuantity(Long id, int quantity) {
+        Product product = productRepository.findById(id).orElse(null);
+        if(product.getQuantityInStock() >= quantity) {
+            return true;
+        }
+        return false;
+    }
+
+    public Product discresQuantity(Long id, int quantity) {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if(product.getQuantityInStock() < quantity) {
+            return null;
+        }
+        product.setQuantityInStock(product.getQuantityInStock() - quantity);
+        productRepository.save(product);
+        return product;
+    }
 
 //    public List<ProductDTO> getProductByTag(String brand) {
 //        return modelMapper.map(productRepository.findByTag(brand),new TypeToken<List<ProductDTO>>(){}.getType());

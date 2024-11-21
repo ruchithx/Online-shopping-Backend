@@ -1,4 +1,4 @@
-package com.apigateway.apigateway.routes;
+package com.apigateway.apigateway.Routes;
 
 
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions;
@@ -14,8 +14,13 @@ public class Routes {
 
     @Bean
     public RouterFunction<ServerResponse> productServiceRoute(){
+        return GatewayRouterFunctions.route("product_service").route(RequestPredicates.path("/api/v1/product/**"), HandlerFunctions.http("http://localhost:8083")).build();
 
-        return GatewayRouterFunctions.route("product_service").route(RequestPredicates.path("/api/v1/product/getproducts"), HandlerFunctions.http("http://localhost:8080")).build();
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> productServiceAdminRoute(){
+        return GatewayRouterFunctions.route("product_service").route(RequestPredicates.path("/api/v1/admin/product/**"), HandlerFunctions.http("http://localhost:8083")).build();
 
     }
 
