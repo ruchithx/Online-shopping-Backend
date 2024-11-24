@@ -46,6 +46,7 @@ public class CartConfig {
 
 
                     );
+            cartItemRepository.saveAll(List.of(cartItem1));
 
 
 
