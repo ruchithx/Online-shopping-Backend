@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/getbrands")
-    public List<BrandDTO> getBrands(){
+    public List<Brand> getBrands(){
         return productService.getAllBrands();
     }
 

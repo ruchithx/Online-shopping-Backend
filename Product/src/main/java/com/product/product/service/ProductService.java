@@ -39,8 +39,9 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-    public List<BrandDTO> getAllBrands() {
-        return modelMapper.map(brandRepository.findAll(), new TypeToken<List<BrandDTO>>(){}.getType());
+    public List<Brand> getAllBrands() {
+        return brandRepository.findAll();
+//        return modelMapper.map(brandRepository.findAll(), new TypeToken<List<BrandDTO>>(){}.getType());
     }
     public List<Tag> getAllTag() {
         return tagRepository.findAll();
