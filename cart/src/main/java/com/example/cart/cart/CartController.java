@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping(path="api/v1/cart")
+@RequestMapping(path="api/v1/cart/")
 public class CartController {
     private final CartService cartService;
     private final CartItemRepository cartItemRepository;
@@ -17,15 +17,17 @@ public class CartController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @GetMapping
-    public List<CartItem> getCartItems() {
-        return cartService.getCartItems();
+    @GetMapping("/{id}")
+    public List<Cart> getCartItems(@PathVariable Long id) {
+        return cartService.getCartItems(id);
     }
 
     @PostMapping("/add")
-    public void addItem(@RequestBody CartItem cartItem){
-        cartService.addNewItem(cartItem);
-
+    public Cart addItem(@RequestBody CartDTO cart){
+    System.out.println( "asdfghjkl");
+        System.out.println(cart);
+//        cartService.addNewItem(cart);
+        return cartService.addNewItem(cart);
 
     }
     @DeleteMapping("/delete/{itemId}")
@@ -35,7 +37,6 @@ public class CartController {
     }
 
     @PutMapping("/update/{itemId}")
-
     public ResponseEntity<String> updateItem(@PathVariable("itemId") Integer itemId, @RequestParam(required = false) Integer quantity){
         cartService.updateItem(itemId,quantity);
         return ResponseEntity.ok("Item updated successfully");

@@ -1,10 +1,14 @@
 package com.product.product.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 public class Product {
 
     @Id
@@ -17,18 +21,52 @@ public class Product {
     private Boolean isDiscount;
     private Double discount;
     private Integer quantityInStock;
-    private Boolean status; // sale or not
+    private Boolean status;
+    @Column(name = "hot_deals")
+    private Boolean hotDeals;
+    @Column(name = "best_seller")
+    private Boolean bestSeller;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    private String mediaUrl;
 
-    @OneToOne
+    public void setHotDeals(Boolean hotDeals) {
+        this.hotDeals = hotDeals;
+    }
+
+    public void setBestSeller(Boolean bestSeller) {
+        this.bestSeller = bestSeller;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
+
+
+    public Boolean getBestSeller() {
+        return bestSeller;
+    }
+
+    public Boolean getHotDeals() {
+        return hotDeals;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+
+
+    @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
 
-
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "brandId")
     private Brand brand;
 

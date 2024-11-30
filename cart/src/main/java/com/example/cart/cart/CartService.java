@@ -1,5 +1,6 @@
 package com.example.cart.cart;
 
+import com.example.cart.Client.ProductClient;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,15 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
+    private final ProductClient productClient;
+
 @Autowired
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository) {
+    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductClient productClient) {
         this.cartRepository = cartRepository;
         this.cartItemRepository=cartItemRepository;
-    }
+//    this.productClient = productClient;
+    this.productClient = productClient;
+}
 
 
 
@@ -24,8 +29,24 @@ public class CartService {
        return cartRepository.findAll();
     }
 
-    public void addNewItem(CartItem cartItem) {
-        cartItemRepository.save(cartItem);
+    public Cart addNewItem(CartDTO cartItem) {
+//        System.out.println(cartItem);
+        Cart cart = new Cart();
+        cart.setUserId(cartItem.getUserId());
+        cart.setProductId(cartItem.getProductId());
+        cart.setQuantity(cartItem.getQuantity());
+        cart.setPrice(cartItem.getPrice());
+        cart.setProductImage(cartItem.getProductImage());
+        cartRepository.save(cart);
+        return cart;
+//        boolean exist= productClient.checkProductExist(Long.parseLong(cartItem.getProductId()), cartItem.getQuantity());
+//        System.out.println(exist);
+//        if(!exist){
+//            throw new IllegalStateException("Product does not exist");
+//        }
+//
+//
+//        cartItemRepository.save(cartItem);
 
 
     }
@@ -51,8 +72,8 @@ public class CartService {
 
 }
 
-    public List<CartItem> getCartItems() {
-        return cartItemRepository.findAll();
+    public List<Cart> getCartItems(Long id) {
+        return cartRepository.findByUserId(id);
     }
 
 

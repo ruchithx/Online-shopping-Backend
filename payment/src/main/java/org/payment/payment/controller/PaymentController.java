@@ -5,12 +5,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/payment")
 public class PaymentController {
 
     @PostMapping("/generate-hash")
     public String generateHash(@RequestBody  HashRequest hashRequest) {
         try {
+            System.out.println("Hash Request: ");
             String dataToHash = hashRequest.getMerchantId() +
                     hashRequest.getOrderId() +
                     hashRequest.getAmount() +
