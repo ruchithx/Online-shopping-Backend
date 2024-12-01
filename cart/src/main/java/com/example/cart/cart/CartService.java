@@ -31,6 +31,13 @@ public class CartService {
 
     public Cart addNewItem(CartDTO cartItem) {
 //        System.out.println(cartItem);
+        Integer productId = cartItem.getProductId();
+        Long productIdAsLong = Long.valueOf(productId);
+      boolean ckeckQuantity=  productClient.checkProductExist(productIdAsLong,cartItem.getQuantity());
+//
+        System.out.println(ckeckQuantity);
+      if(ckeckQuantity){
+
         Cart cart = new Cart();
         cart.setUserId(cartItem.getUserId());
         cart.setProductId(cartItem.getProductId());
@@ -39,6 +46,8 @@ public class CartService {
         cart.setProductImage(cartItem.getProductImage());
         cartRepository.save(cart);
         return cart;
+      }
+      return null;
 //        boolean exist= productClient.checkProductExist(Long.parseLong(cartItem.getProductId()), cartItem.getQuantity());
 //        System.out.println(exist);
 //        if(!exist){
