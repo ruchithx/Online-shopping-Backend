@@ -60,28 +60,28 @@ public class CartService {
 
     }
 
-    public void deleteItem(Integer itemId) {
-    boolean exists= cartItemRepository.existsById(Long.valueOf(itemId));
+    public void deleteItem(Integer cartId) {
+    boolean exists= cartRepository.existsById(cartId);
 
     if(!exists){
         throw new IllegalStateException("Item does not exist");
     }
-    cartItemRepository.deleteById(Long.valueOf(itemId));
+    cartRepository.deleteById(cartId);
 
     }
 
 
 @Transactional
-    public void updateItem(Integer itemId, Integer quantity) {
-    CartItem cartItem = cartItemRepository.findById(Long.valueOf(itemId))
+    public void updateItem(Integer cartId, Integer quantity) {
+    Cart cartItem = cartRepository.findById(cartId)
             .orElseThrow(() -> new IllegalStateException("Item does not exist"));
 
     cartItem.setQuantity(quantity);
-    cartItemRepository.save(cartItem);
+    cartRepository.save(cartItem);
 
 }
 
-    public List<Cart> getCartItems(Long id) {
+    public List<Cart> getCartItems(Integer id) {
         return cartRepository.findByUserId(id);
     }
 
