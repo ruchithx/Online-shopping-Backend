@@ -225,7 +225,7 @@ class ProductServiceApplicationTests {
 
 	@Test
 	void shouldReturnListOfProducts() {
-		String baseUrl = "http://localhost:8083/api/v1/product/getproducts";
+		String baseUrl = "/api/v1/product/getproducts";
 
 		// Send GET request to the endpoint
 		var response = RestAssured.given()
