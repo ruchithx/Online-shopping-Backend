@@ -1,2 +1,7 @@
+* text=auto
+*.cnf eol=lf
+*.index eol=lf
+*.sock binary
+
 /mvnw text eol=lf
 *.cmd text eol=crlf
