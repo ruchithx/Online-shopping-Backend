@@ -19,7 +19,7 @@ public class SecurityRouteConfig {
 
     // Define partially secured routes
     public static final Map<String, HttpMethod[]> PARTIALLY_SECURED_ROUTES = Map.of(
-            "/api/v1/products", new HttpMethod[]{HttpMethod.GET}
+            "/api/v1/product/getproducts", new HttpMethod[]{HttpMethod.GET}
 //            "/api/v1/offers", new HttpMethod[]{HttpMethod.GET, HttpMethod.POST}
     );
 
