@@ -18,7 +18,7 @@ public class CartController {
     }
 
     @GetMapping("/{id}")
-    public List<Cart> getCartItems(@PathVariable Long id) {
+    public List<Cart> getCartItems(@PathVariable Integer id) {
         return cartService.getCartItems(id);
     }
 
@@ -30,15 +30,15 @@ public class CartController {
         return cartService.addNewItem(cart);
 
     }
-    @DeleteMapping("/delete/{itemId}")
-    public void deleteItem(@PathVariable("itemId") Integer itemId){
-        cartService.deleteItem(itemId);
+    @DeleteMapping("/delete/{cartId}")
+    public void deleteItem(@PathVariable("cartId") Integer cartId){
+        cartService.deleteItem(cartId);
 
     }
 
-    @PutMapping("/update/{itemId}")
-    public ResponseEntity<String> updateItem(@PathVariable("itemId") Integer itemId, @RequestParam(required = false) Integer quantity){
-        cartService.updateItem(itemId,quantity);
+    @PutMapping("/update/{cartId}")
+    public ResponseEntity<String> updateItem(@PathVariable("cartId") Integer cartId, @RequestParam(required = false) Integer quantity){
+        cartService.updateItem(cartId,quantity);
         return ResponseEntity.ok("Item updated successfully");
 
     }
