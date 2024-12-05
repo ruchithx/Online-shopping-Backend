@@ -50,6 +50,15 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @PostMapping("/getproductsbyids")
+    public List<Product> getProductsByIds(@RequestBody List<Integer> productIds) {
+        return productService.getProductsByIds(productIds);
+    }
+
+
+
+
+
     @GetMapping("/getproductbycategory/{category}")
     public List<ProductDTO> getProductByCategory(@PathVariable String category){
         return productService.getProductByCategory(category);

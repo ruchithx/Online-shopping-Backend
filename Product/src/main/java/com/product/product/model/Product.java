@@ -34,6 +34,15 @@ public class Product {
 
     private String mediaUrl;
 
+
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "brandId")
+    private Brand brand;
+
     public void setHotDeals(Boolean hotDeals) {
         this.hotDeals = hotDeals;
     }
@@ -62,13 +71,6 @@ public class Product {
 
 
 
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
-    private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "brandId")
-    private Brand brand;
 
     public Brand getBrand() {
         return brand;

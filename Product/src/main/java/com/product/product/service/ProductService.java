@@ -63,6 +63,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    public List<Product> getProductsByIds(List<Integer> productIds) {
+        return productRepository.findAllByIds(productIds);
+    }
+
     public List<ProductDTO> getProductByCategory(String category) {
         return modelMapper.map(productRepository.findByCategory(category),new TypeToken<List<ProductDTO>>(){}.getType());
     }
