@@ -14,8 +14,8 @@ public class CartItem {
     private Integer quantity;
     private Double price;
     private Double discount;
-@ManyToOne
-private Cart cart;
+//@ManyToOne
+//private Cart cart;
 
 
     public CartItem(Integer itemId, Integer cartId, String productId, String productName, String productDescription, Integer quantity, Double price, Double discount) {

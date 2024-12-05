@@ -37,10 +37,20 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        try {
+            List<Product> data = productRepository.findAll();
+            return data;
+        } catch (Exception e) {
+            // Log the exception for debugging
+            System.err.println("Error fetching products: " + e.getMessage());
+            // Optionally, throw a custom exception to inform the client about the error
+            throw new RuntimeException("Failed to fetch products", e);
+        }
     }
-    public List<BrandDTO> getAllBrands() {
-        return modelMapper.map(brandRepository.findAll(), new TypeToken<List<BrandDTO>>(){}.getType());
+
+    public List<Brand> getAllBrands() {
+        return brandRepository.findAll();
+//        return modelMapper.map(brandRepository.findAll(), new TypeToken<List<BrandDTO>>(){}.getType());
     }
     public List<Tag> getAllTag() {
         return tagRepository.findAll();
@@ -51,6 +61,10 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public List<Product> getProductsByIds(List<Integer> productIds) {
+        return productRepository.findAllByIds(productIds);
     }
 
     public List<ProductDTO> getProductByCategory(String category) {

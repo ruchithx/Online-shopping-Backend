@@ -1,0 +1,18 @@
+
+services:
+  product-service:
+    build:
+      context: ./Product
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-muddy-mode-a1kk1nzo.ap-southeast-1.aws.neon.tech/product
+      SPRING_DATASOURCE_USERNAME: product_owner
+      SPRING_DATASOURCE_PASSWORD: iGSPNEk0az9y
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+
+
+

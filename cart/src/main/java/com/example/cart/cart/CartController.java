@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping(path="api/v1/cart")
+@RequestMapping(path="api/v1/cart/")
 public class CartController {
     private final CartService cartService;
     private final CartItemRepository cartItemRepository;
@@ -17,27 +17,28 @@ public class CartController {
         this.cartItemRepository = cartItemRepository;
     }
 
-    @GetMapping
-    public List<CartItem> getCartItems() {
-        return cartService.getCartItems();
+    @GetMapping("/{id}")
+    public List<Cart> getCartItems(@PathVariable Integer id) {
+        return cartService.getCartItems(id);
     }
 
     @PostMapping("/add")
-    public void addItem(@RequestBody CartItem cartItem){
-        cartService.addNewItem(cartItem);
-
-
-    }
-    @DeleteMapping("/delete/{itemId}")
-    public void deleteItem(@PathVariable("itemId") Integer itemId){
-        cartService.deleteItem(itemId);
+    public Cart addItem(@RequestBody CartDTO cart){
+    System.out.println( "asdfghjkl");
+        System.out.println(cart);
+//        cartService.addNewItem(cart);
+        return cartService.addNewItem(cart);
 
     }
+    @DeleteMapping("/delete/{cartId}")
+    public void deleteItem(@PathVariable("cartId") Integer cartId){
+        cartService.deleteItem(cartId);
 
-    @PutMapping("/update/{itemId}")
+    }
 
-    public ResponseEntity<String> updateItem(@PathVariable("itemId") Integer itemId, @RequestParam(required = false) Integer quantity){
-        cartService.updateItem(itemId,quantity);
+    @PutMapping("/update/{cartId}")
+    public ResponseEntity<String> updateItem(@PathVariable("cartId") Integer cartId, @RequestParam(required = false) Integer quantity){
+        cartService.updateItem(cartId,quantity);
         return ResponseEntity.ok("Item updated successfully");
 
     }

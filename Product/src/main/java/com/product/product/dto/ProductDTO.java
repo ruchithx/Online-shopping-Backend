@@ -1,16 +1,42 @@
 package com.product.product.dto;
 
+import lombok.Data;
+
+@Data
 public class ProductDTO {
     private String productName;
     private String productDescription;
     private Double productPrice;
     private Integer SKU;
     private Boolean isDiscount;
-    private Double discount;
+    private Double discount;  // Discount as Double
     private Integer quantityInStock;
     private Boolean status;
+    private Boolean hotDeals;
     private Long categoryId;
     private Long brandId;
+    private String mediaUrl;
+    private Boolean bestSeller;
+
+    // Removed incorrect setDiscount(Boolean discount) method
+
+    // Correct setDiscount method for Double discount
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    // Getters and setters for other fields
+    public Boolean getHotDeals() {
+        return hotDeals;
+    }
+
+    public Boolean getBestSeller() {
+        return bestSeller;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
 
     public String getProductName() {
         return this.productName;
@@ -56,10 +82,6 @@ public class ProductDTO {
         return this.discount;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
     public Integer getQuantityInStock() {
         return this.quantityInStock;
     }
@@ -77,31 +99,22 @@ public class ProductDTO {
     }
 
     public Long getCategoryId() {
-
         return this.categoryId;
-
     }
 
     public void setCategoryId(Long categoryId) {
-
         this.categoryId = categoryId;
-
     }
 
     public Long getBrandId() {
-
         return this.brandId;
-
     }
 
     public void setBrandId(Long brandId) {
-
         this.brandId = brandId;
-
     }
 
-
     public Integer getProductQuantity() {
-        return this.quantityInStock ;
+        return this.quantityInStock;
     }
 }

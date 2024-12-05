@@ -14,6 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.brand = ?1")
     List<Product> findByBrand(String brand);
 
-
+    @Query("SELECT p FROM Product p WHERE p.productId IN ?1")
+    List<Product> findAllByIds(List<Integer> ids);
 
 }

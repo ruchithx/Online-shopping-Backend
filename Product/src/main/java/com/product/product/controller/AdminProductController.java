@@ -23,7 +23,7 @@ public class AdminProductController {
     @PostMapping("/addproduct")
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody ProductDTO productDTO){
-
+        System.out.println("Product added"+ productDTO);
         return productAdminService.addProduct(productDTO);
     }
 
@@ -40,6 +40,14 @@ public class AdminProductController {
     public Brand addBrand(@RequestBody BrandDTO brandDTO){
 
         return productAdminService.addBrand(brandDTO);
+
+    }
+
+    @PostMapping("/addimage")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductMedia addPhoto(@RequestBody PhotoDTO photoDTO){
+
+        return productAdminService.addImage(photoDTO);
 
     }
 

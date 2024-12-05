@@ -9,6 +9,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.attribute.standard.Media;
 import java.util.List;
 
 @Service
@@ -30,15 +31,19 @@ public class ProductAdminService {
     private ProductTagRepository productTagRepository;
 
     @Autowired
+    private MediaRepository mediaRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
 
-    public ProductAdminService(CategoryRepository CategoryRepository,ProductTagRepository productTagRepository,BrandRepository BrandRepository,TagRepository TagRepository,ProductRepository ProductRepository) {
+    public ProductAdminService(MediaRepository mediaRepository,CategoryRepository CategoryRepository,ProductTagRepository productTagRepository,BrandRepository BrandRepository,TagRepository TagRepository,ProductRepository ProductRepository) {
         this.CategoryRepository = CategoryRepository;
         this.BrandRepository = BrandRepository;
         this.TagRepository = TagRepository;
         this.ProductRepository = ProductRepository;
         this.productTagRepository = productTagRepository;
+        this.mediaRepository = mediaRepository;
     }
 
     public Category addCategory(CategoryDTO categoryDTO) {
@@ -48,6 +53,14 @@ public class ProductAdminService {
         category.setCategoryDescription(categoryDTO.getCategoryDescription());
 
         return CategoryRepository.save(category);
+    }
+
+    public ProductMedia addImage(PhotoDTO photoDTO) {
+        System.out.println("photoDTO"+photoDTO);
+        ProductMedia productMedia = new ProductMedia();
+        productMedia.setMediaUrl(photoDTO.getMediaUrl());
+        productMedia.setProduct(ProductRepository.findById(photoDTO.getProductId()).orElseThrow(() -> new IllegalArgumentException("Invalid product ID")));
+        return mediaRepository.save(productMedia);
     }
 
     public Brand addBrand(BrandDTO brandDTO) {
@@ -80,6 +93,10 @@ public class ProductAdminService {
         product.setIsDiscount(productDTO.getIsDiscount());
         product.setDiscount(productDTO.getDiscount());
         product.setStatus(productDTO.getStatus());
+        product.setMediaUrl(productDTO.getMediaUrl());
+        product.setHotDeals(productDTO.getHotDeals());
+        product.setBestSeller(productDTO.getBestSeller());
+
 
         Category category = CategoryRepository.findById(productDTO.getCategoryId())  .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
         product.setCategory(category);

@@ -1,9 +1,12 @@
 package com.example.Order.service;
 
+import com.example.Order.Client.ProductClient;
 import com.example.Order.dto.OrderDTO;
+import com.example.Order.dto.ProductDTO;
 import com.example.Order.model.Order;
 import com.example.Order.model.OrderItem;
 import com.example.Order.repo.OrderRepo;
+//import com.example.cart.Client.ProductClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,11 @@ public class OrderService {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private ProductClient productClient;
+
+//    @Autowired
+//    private ProductClient productClient;
 
     public String createOrder(Order order) {
         if(order.getUserId() == 0) {
@@ -86,7 +94,16 @@ public class OrderService {
 
     public List<Order> getOrdersForUser(int userId) {
         try {
-            return orderRepo.getOrdersByUserId(userId);
+            List<Order> orderList= orderRepo.getOrdersByUserId(userId);
+
+        int[] data= {1, 2, 52, 102};
+        List<ProductDTO> productDetails= productClient.getProductById(data);
+
+            System.out.println(productDetails);
+
+
+
+            return orderList;
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while fetching orders for user ID " + userId + ": " + e.getMessage());
         }
