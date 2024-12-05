@@ -30,7 +30,7 @@ public class CartService {
     }
 
     public Cart addNewItem(CartDTO cartItem) {
-//        System.out.println(cartItem);
+        System.out.println(cartItem);
         Integer productId = cartItem.getProductId();
         Long productIdAsLong = Long.valueOf(productId);
       boolean ckeckQuantity=  productClient.checkProductExist(productIdAsLong,cartItem.getQuantity());

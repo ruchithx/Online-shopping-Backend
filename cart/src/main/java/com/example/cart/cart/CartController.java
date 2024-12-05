@@ -36,7 +36,7 @@ public class CartController {
 
     }
 
-    @PutMapping("/update/{cartId}")
+    @PatchMapping("/update/{cartId}")
     public ResponseEntity<String> updateItem(@PathVariable("cartId") Integer cartId, @RequestParam(required = false) Integer quantity){
         cartService.updateItem(cartId,quantity);
         return ResponseEntity.ok("Item updated successfully");
