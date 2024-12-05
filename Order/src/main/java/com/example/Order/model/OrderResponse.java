@@ -1,6 +1,5 @@
-package com.example.Order.dto;
+package com.example.Order.model;
 
-import com.example.Order.model.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,13 +10,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDTO {
+
+public class OrderResponse {
     private int id;
     private int userId;
-    private float totalPrice;
+    private double totalPrice;
     private String status;
     private LocalDateTime createdAt;
     private String address;
-    private List<OrderItemDTO> orderItems;
+    private List<OrderItemResponse> orderItems;
 
+    // Constructor, Getters, and Setters
 }
+
