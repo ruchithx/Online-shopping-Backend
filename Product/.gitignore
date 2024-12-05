@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignore MySQL socket files and other temporary data
+Apigateway/volume-data/mysql_keycloak_data/*.sock
+Apigateway/volume-data/mysql_keycloak_data/*.pid
+Apigateway/volume-data/mysql_keycloak_data/*.log
