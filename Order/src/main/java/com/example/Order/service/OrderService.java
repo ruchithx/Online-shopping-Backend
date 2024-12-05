@@ -2,9 +2,12 @@ package com.example.Order.service;
 
 import com.example.Order.Client.ProductClient;
 import com.example.Order.dto.OrderDTO;
+import com.example.Order.dto.OrderItemDTO;
 import com.example.Order.dto.ProductDTO;
 import com.example.Order.model.Order;
 import com.example.Order.model.OrderItem;
+import com.example.Order.model.OrderItemResponse;
+import com.example.Order.model.OrderResponse;
 import com.example.Order.repo.OrderRepo;
 //import com.example.cart.Client.ProductClient;
 import org.modelmapper.ModelMapper;
@@ -13,8 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -66,9 +72,42 @@ public class OrderService {
 
     public OrderDTO getOrderById(int orderId) {
         try {
+            // Fetch the order from the database
             Order order = orderRepo.findById(orderId)
                     .orElseThrow(() -> new NoSuchElementException("Order with ID " + orderId + " not found"));
-            return modelMapper.map(order, OrderDTO.class);
+
+            // Fetch the product details for each order item
+            int[] productIds = order.getOrderItems().stream()
+                    .mapToInt(OrderItem::getProductId)
+                    .toArray();
+
+            // Fetch the product details from the Product service
+            List<ProductDTO> products = productClient.getProductById(productIds);
+
+            // Map the order items to OrderItemDTO and set the corresponding product details
+            List<OrderItemDTO> orderItemDTOs = order.getOrderItems().stream()
+                    .map(orderItem -> {
+                        // Find the corresponding product for this order item
+                        ProductDTO productDTO = products.stream()
+                                .filter(product -> product.getProductId() == orderItem.getProductId())
+                                .findFirst()
+                                .orElse(null);  // If no product found, set to null (handle this case appropriately)
+
+                        // Map the OrderItem to OrderItemDTO
+                        OrderItemDTO orderItemDTO = modelMapper.map(orderItem, OrderItemDTO.class);
+
+                        // Set the product details in the OrderItemDTO
+                        orderItemDTO.setProduct(productDTO);
+
+                        return orderItemDTO;
+                    })
+                    .collect(Collectors.toList());
+
+            // Map the entire order to OrderDTO and set the order items as OrderItemDTO
+            OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+            orderDTO.setOrderItems(orderItemDTOs);  // Now setting List<OrderItemDTO> with product details
+
+            return orderDTO;
         } catch (NoSuchElementException e) {
             // Handle specific exception
             throw e;
@@ -76,6 +115,11 @@ public class OrderService {
             throw new RuntimeException("An error occurred while fetching the order: " + e.getMessage());
         }
     }
+
+
+
+
+
 
     public String updateOrderStatus(int orderId, Order order) {
         try {
@@ -96,10 +140,8 @@ public class OrderService {
         try {
             List<Order> orderList= orderRepo.getOrdersByUserId(userId);
 
-        int[] data= {1, 2, 52, 102};
-        List<ProductDTO> productDetails= productClient.getProductById(data);
-
-            System.out.println(productDetails);
+            int[] data= {1, 2, 52, 102};
+            List<ProductDTO> productDetails= productClient.getProductById(data);
 
 
 
@@ -108,6 +150,8 @@ public class OrderService {
             throw new RuntimeException("An error occurred while fetching orders for user ID " + userId + ": " + e.getMessage());
         }
     }
+
+
 
     public List<Order> getPastOrdersForUser(int userId) {
         try {

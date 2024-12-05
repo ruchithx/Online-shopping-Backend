@@ -1,5 +1,6 @@
 package com.example.Order.dto;
 
+import com.example.Order.dto.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,5 @@ public class OrderItemDTO {
     private int orderId;
     private int productId;
     private float quantity;
+    private ProductDTO product;  // Add ProductDTO to include product details
 }
