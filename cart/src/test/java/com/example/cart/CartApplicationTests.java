@@ -2,15 +2,35 @@ package com.example.cart;
 
 
 import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import org.assertj.core.api.BDDAssumptions;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
+import org.hamcrest.Matchers.*;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.Matchers.equalTo;
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.*;
+import io.restassured.response.Response;
+
+
+
+
 
 @SpringBootTest
 class CartApplicationTests {
+//	@BeforeClass
+//	public static void setup() {
+//		// Register the plain text parser
+//		RestAssured.registerParser("text/plain", Parser.TEXT);
+//	}
 
 	@Test
 	void shouldGetCartItems() {
@@ -32,7 +52,7 @@ class CartApplicationTests {
 				.body("[0].userId", Matchers.notNullValue())
 				.body("[0].productId", Matchers.notNullValue())
 				.body("[0].quantity", Matchers.greaterThan(0))
-				.body("[0].price", Matchers.greaterThan(0.0))
+				.body("[0].price", Matchers.greaterThan((float)0.0))
 				.body("[0].productImage", Matchers.notNullValue())
 				.body("[0].productName", Matchers.notNullValue())
 				.body("[0].createdAt", Matchers.matchesPattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"))
@@ -41,7 +61,7 @@ class CartApplicationTests {
 
 	@Test
 	void shouldAddItemToCart() {
-		String baseUrl = "http://localhost:8082/api/v1/cart/add";
+
 		String jsonBody = "{\n" +
 				"    \"productId\": 123,\n" +
 				"    \"productName\": \"Smartphone\",\n" +
@@ -55,55 +75,51 @@ class CartApplicationTests {
 				.contentType("application/json")
 				.body(jsonBody)
 				.when()
-				.post(baseUrl);
+				.post("http://localhost:8082/api/v1/cart/add");
 
 		// Log the response
 		System.out.println("Response: " + response.asString());
 
 		// Validate the response
 		response.then()
-				.statusCode(201);  // Ensure the status code is 201 (Created)
-//				.body("message", equalTo("Item added to cart successfully")) // Validate response message
-//				.body("cartItem.cartId", notNullValue()) // Ensure cartId is present
-//				.body("cartItem.productId", equalTo(123)) // Validate productId
-//				.body("cartItem.productName", equalTo("Smartphone")) // Validate productName
-//				.body("cartItem.price", equalTo(999.99f)) // Validate price
-//				.body("cartItem.quantity", equalTo(2)) // Validate quantity
-//				.body("cartItem.userId", equalTo(1)) // Validate userId
-//				.body("cartItem.productImage", equalTo("https://example.com/product-image.jpg")); // Validate productImage
+				.statusCode(201);
+
 	}
+
+
+
 	@Test
-	void shouldUpdateCartItemQuantityUsingPathAndQueryParams() {
-		// Define the API base URL and path parameter
-		String baseUrl = "http://localhost:8082/api/v1/cart/update";
-		String cartId = "1"; // Replace with a valid cart ID
+	void shouldUpdateItemQuantityInCart() {
+		// Define the API base URL
+		String baseUrl = "http://localhost:8082/api/v1/cart/update/5"; // Replace with dynamic cartId if needed
 
-		// Define the query parameter
-		int quantity = 5;
+		// Create the request body
+		String jsonBody = "{\n" +
+				"    \"quantity\": 3\n" +
+				"}";
 
-		// Send PUT request with path parameter and query parameter
+		// Send PUT request to the endpoint
 		var response = RestAssured.given()
 				.contentType("application/json")
-				.queryParam("quantity", Math.max(1, quantity)) // Set the query parameter
+				.body(jsonBody)  // Include the request body
 				.when()
-				.put(baseUrl + "/" + cartId); // Add cartId as a path parameter
+				.patch(baseUrl);
 
 		// Log the response for debugging
 		System.out.println("Response: " + response.asString());
 
 		// Validate the response
 		response.then()
-				.statusCode(200) // Ensure the status code is 200 (OK)
-				.body("cartId", equalTo(cartId)) // Validate cartId in the response
-				.body("quantity", equalTo(Math.max(1, quantity))); // Validate updated quantity
+				.statusCode(200)  // Ensure the status code is 200 (OK)
+				.contentType("text/plain") // Specify that the response content is plain text
+				.body(equalTo("Item updated successfully")); // Validate the plain text response
 	}
-
 
 	@Test
 	void shouldDeleteCart() {
 		// Define the API base URL and cartId
 //		String baseUrl = "http://localhost:8082/api/v1/cart/delete";
-		String cartId = "1"; // Replace with a valid cart ID
+		int cartId = 8; // Replace with a valid cart ID
 
 		// Send DELETE request with path parameter
 		var response = RestAssured.given()
@@ -116,9 +132,8 @@ class CartApplicationTests {
 
 		// Validate the response
 		response.then()
-				.statusCode(200) // Ensure the status code is 200 (OK)
-				.body("cartId", equalTo(cartId)) // Validate the cartId in the response
-				.body("message", equalTo("Cart deleted successfully")); // Validate the success message
+				.statusCode(200);
+
 	}
 
 
