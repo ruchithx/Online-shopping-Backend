@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface OrderRepo extends JpaRepository<Order,Integer> {
-    List<Order> getOrdersByUserId(Integer userId);
+    List<Order> getOrdersByUserId(String userId);
 
     @Query(value = "SELECT * FROM orders WHERE orders.user_id = ?1 AND status = 'Completed'",nativeQuery = true)
-    List<Order> getPastOrdersByUserId(Integer userId);
+    List<Order> getPastOrdersByUserId(String userId);
 }

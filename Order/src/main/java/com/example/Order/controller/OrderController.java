@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @GetMapping("orders")
-    public ResponseEntity<?> getOrdersForUser(@RequestParam int userId) {
+    public ResponseEntity<?> getOrdersForUser(@RequestParam String userId) {
         try {
             List<Order> orders = orderService.getOrdersForUser(userId);
             return ResponseEntity.ok(orders);
@@ -67,7 +67,7 @@ public class OrderController {
     }
 
     @GetMapping("orders/past")
-    public ResponseEntity<?> getPastOrdersForUser(@RequestParam int userId) {
+    public ResponseEntity<?> getPastOrdersForUser(@RequestParam String userId) {
         try {
             List<Order> pastOrders = orderService.getPastOrdersForUser(userId);
             return ResponseEntity.ok(pastOrders);
