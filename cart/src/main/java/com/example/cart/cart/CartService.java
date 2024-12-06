@@ -88,4 +88,10 @@ public class CartService {
     }
 
 
+    public void deleteAllByUserId(String userId) {
+        List<Cart> carts = cartRepository.findAllByUserId(userId);
+        if (!carts.isEmpty()) {
+            cartRepository.deleteAll(carts);
+        }
+    }
 }
