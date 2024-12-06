@@ -1,6 +1,7 @@
 package com.example.cart.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,7 @@ public class CartController {
     public Cart addItem(@RequestBody CartDTO cart){
     System.out.println( "asdfghjkl");
         System.out.println("Product Name: " + cart.getProductName()); // Debug log
-        System.out.println("fffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        System.out.println("hhhhhhhhhhhhhhh"+cart);
+
 
 
 //        cartService.addNewItem(cart);
@@ -46,6 +46,17 @@ public class CartController {
         return ResponseEntity.ok("Item updated successfully");
 
     }
+    @DeleteMapping("/delete/all/{userId}")
+    public ResponseEntity<String> deleteAllCartItemsByUserId(@PathVariable String userId) {
+        try {
+            cartService.deleteAllByUserId(userId);
+            return ResponseEntity.ok("All cart items for user " + userId + " have been deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete cart items for user " + userId);
+        }
+    }
+
 
 
 
