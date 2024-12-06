@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
     private int id;
-    private int userId;
+    private String userId;
     private float totalPrice;
     private String status;
     private LocalDateTime createdAt;
