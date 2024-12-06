@@ -26,13 +26,14 @@ public class Product {
     private Boolean hotDeals;
     @Column(name = "best_seller")
     private Boolean bestSeller;
+    private String mediaUrl;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private String mediaUrl;
+
 
 
     @ManyToOne

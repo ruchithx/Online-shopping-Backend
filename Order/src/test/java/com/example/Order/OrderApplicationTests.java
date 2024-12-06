@@ -126,11 +126,11 @@ class OrderApplicationTest {
 		setup();
 
 		mockMvc.perform(get("/api/v1/orders/past")
-						.param("userId", "1"))
+						.param("userId", "a05f11e5-6872-40b2-8c6f-0e2f1c3a0d07"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$").isArray())
 				.andExpect(jsonPath("$[0].id").isNumber())
-				.andExpect(jsonPath("$[0].userId").isNumber())
+				.andExpect(jsonPath("$[0].userId").isString())
 				.andExpect(jsonPath("$[0].status").isString())
 				.andExpect(jsonPath("$[0].totalPrice").isNumber())
 				.andExpect(jsonPath("$[0].address").isString());
@@ -144,7 +144,7 @@ class OrderApplicationTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$").isArray())
 				.andExpect(jsonPath("$[0].id").isNumber())
-				.andExpect(jsonPath("$[0].userId").isNumber())
+				.andExpect(jsonPath("$[0].userId").isString())
 				.andExpect(jsonPath("$[0].status").isString())
 				.andExpect(jsonPath("$[0].totalPrice").isNumber())
 				.andExpect(jsonPath("$[0].address").isString());
