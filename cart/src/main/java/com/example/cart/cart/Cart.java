@@ -12,7 +12,7 @@ public class Cart {
         return cartId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -43,13 +43,13 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cartId;
-    private Integer userId;
+    private String userId;
 
     public void setCartId(Integer cartId) {
         this.cartId = cartId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -68,7 +68,9 @@ public class Cart {
     public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
-
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -86,9 +88,7 @@ public class Cart {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
+
 
     private String productName;
     @CreationTimestamp

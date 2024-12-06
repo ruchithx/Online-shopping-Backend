@@ -40,14 +40,14 @@ class CartApplicationTests {
 		var response = RestAssured.given()
 				.contentType("application/json")
 				.when()
-				.get(baseUrl + "/{userId}", 1);
+				.get(baseUrl + "/{userId}","1");
 
 		// Log the response
 		System.out.println("Response: " + response.asString());
 
 		// Validate the response
 		response.then()
-				.statusCode(200) // Ensure the status code is 200 (OK)
+
 				.body("[0].cartId", Matchers.notNullValue())
 				.body("[0].userId", Matchers.notNullValue())
 				.body("[0].productId", Matchers.notNullValue())
@@ -56,7 +56,8 @@ class CartApplicationTests {
 				.body("[0].productImage", Matchers.notNullValue())
 				.body("[0].productName", Matchers.notNullValue())
 				.body("[0].createdAt", Matchers.matchesPattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"))
-				.body("[0].updatedAt", Matchers.matchesPattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"));
+				.body("[0].updatedAt", Matchers.matchesPattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.*"))
+				.statusCode(200); // Ensure the status code is 200 (OK);
 	}
 
 	@Test
@@ -67,7 +68,7 @@ class CartApplicationTests {
 				"    \"productName\": \"Smartphone\",\n" +
 				"    \"price\": 999.99,\n" +
 				"    \"quantity\": 2,\n" +
-				"    \"userId\": 1,\n" +
+				"    \"userId\": \"1\",\n" +
 				"    \"productImage\": \"https://example.com/product-image.jpg\"\n" +
 				"}";
 
@@ -88,10 +89,12 @@ class CartApplicationTests {
 
 
 
+
+
 	@Test
 	void shouldUpdateItemQuantityInCart() {
 		// Define the API base URL
-		String baseUrl = "http://localhost:8082/api/v1/cart/update/5"; // Replace with dynamic cartId if needed
+		String baseUrl = "http://localhost:8082/api/v1/cart/update/11"; // Replace with dynamic cartId if needed
 
 		// Create the request body
 		String jsonBody = "{\n" +
@@ -119,7 +122,7 @@ class CartApplicationTests {
 	void shouldDeleteCart() {
 		// Define the API base URL and cartId
 //		String baseUrl = "http://localhost:8082/api/v1/cart/delete";
-		int cartId = 8; // Replace with a valid cart ID
+		int cartId = 11; // Replace with a valid cart ID
 
 		// Send DELETE request with path parameter
 		var response = RestAssured.given()
