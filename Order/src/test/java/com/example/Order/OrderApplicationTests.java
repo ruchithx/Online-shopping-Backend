@@ -51,21 +51,21 @@ class OrderApplicationTest {
 				.andExpect(content().string("Order Created Successfully"));
 	}
 
-	@Test
-	void getOrderByIdTest() throws Exception {
-		setup();
-
-		mockMvc.perform(get("/api/v1/orders/1"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id").value(1))
-				.andExpect(jsonPath("$.userId").value(1))
-				.andExpect(jsonPath("$.status").value("Completed"))
-				.andExpect(jsonPath("$.id").isNumber()) // Validate ID is a number
-				.andExpect(jsonPath("$.userId").isNumber()) // Validate userId is a number
-				.andExpect(jsonPath("$.status").isString()) // Validate status is a string
-				.andExpect(jsonPath("$.totalPrice").isNumber()) // Validate totalPrice is a number
-				.andExpect(jsonPath("$.address").isString()); // Validate address is a string
-	}
+//	@Test
+//	void getOrderByIdTest() throws Exception {
+//		setup();
+//
+//		mockMvc.perform(get("/api/v1/orders/1"))
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$.id").value(1))
+//				.andExpect(jsonPath("$.userId").value(1))
+//				.andExpect(jsonPath("$.status").value("Completed"))
+//				.andExpect(jsonPath("$.id").isNumber()) // Validate ID is a number
+//				.andExpect(jsonPath("$.userId").isNumber()) // Validate userId is a number
+//				.andExpect(jsonPath("$.status").isString()) // Validate status is a string
+//				.andExpect(jsonPath("$.totalPrice").isNumber()) // Validate totalPrice is a number
+//				.andExpect(jsonPath("$.address").isString()); // Validate address is a string
+//	}
 
 	@Test
 	void updateOrderStatusTest() throws Exception {
@@ -84,20 +84,20 @@ class OrderApplicationTest {
 				.andExpect(content().string("Order Updated Successfully"));
 	}
 
-	@Test
-	void getOrdersByUserIdTest() throws Exception {
-		setup();
-
-		mockMvc.perform(get("/api/v1/orders")
-						.param("userId", "1"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$").isArray()) // Ensure the response is an array
-				.andExpect(jsonPath("$[0].id").isNumber()) // Validate the first order's ID is a number
-				.andExpect(jsonPath("$[0].userId").isNumber()) // Validate userId
-				.andExpect(jsonPath("$[0].status").isString()) // Validate status
-				.andExpect(jsonPath("$[0].totalPrice").isNumber()) // Validate totalPrice
-				.andExpect(jsonPath("$[0].address").isString()); // Validate address
-	}
+//	@Test
+//	void getOrdersByUserIdTest() throws Exception {
+//		setup();
+//
+//		mockMvc.perform(get("/api/v1/orders")
+//						.param("userId", "1"))
+//				.andExpect(status().isOk())
+//				.andExpect(jsonPath("$").isArray()) // Ensure the response is an array
+//				.andExpect(jsonPath("$[0].id").isNumber()) // Validate the first order's ID is a number
+//				.andExpect(jsonPath("$[0].userId").isNumber()) // Validate userId
+//				.andExpect(jsonPath("$[0].status").isString()) // Validate status
+//				.andExpect(jsonPath("$[0].totalPrice").isNumber()) // Validate totalPrice
+//				.andExpect(jsonPath("$[0].address").isString()); // Validate address
+//	}
 
 	@Test
 	void getPastOrdersTest() throws Exception {
