@@ -38,7 +38,7 @@ public class OrderService {
 //    private ProductClient productClient;
 
     public String createOrder(Order order) {
-        if(order.getUserId() == 0) {
+        if(order.getUserId() == "") {
             return "User ID is required";
         }
         if(order.getTotalPrice() == 0) {
@@ -136,16 +136,11 @@ public class OrderService {
         }
     }
 
-    public List<Order> getOrdersForUser(int userId) {
+    public List<Order> getOrdersForUser(String userId) {
         try {
-            List<Order> orderList= orderRepo.getOrdersByUserId(userId);
-
-            int[] data= {1, 2, 52, 102};
-            List<ProductDTO> productDetails= productClient.getProductById(data);
 
 
-
-            return orderList;
+            return orderRepo.getOrdersByUserId(userId);
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while fetching orders for user ID " + userId + ": " + e.getMessage());
         }
@@ -153,7 +148,7 @@ public class OrderService {
 
 
 
-    public List<Order> getPastOrdersForUser(int userId) {
+    public List<Order> getPastOrdersForUser(String userId) {
         try {
             return orderRepo.getPastOrdersByUserId(userId);
         } catch (Exception e) {

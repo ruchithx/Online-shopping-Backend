@@ -30,7 +30,7 @@ public class CartService {
     }
 
     public Cart addNewItem(CartDTO cartItem) {
-        System.out.println(cartItem);
+        System.out.println("cart itemmmmm"+cartItem);
         Integer productId = cartItem.getProductId();
         Long productIdAsLong = Long.valueOf(productId);
       boolean ckeckQuantity=  productClient.checkProductExist(productIdAsLong,cartItem.getQuantity());
@@ -44,6 +44,8 @@ public class CartService {
         cart.setQuantity(cartItem.getQuantity());
         cart.setPrice(cartItem.getPrice());
         cart.setProductImage(cartItem.getProductImage());
+        cart.setProductName(cartItem.getProductName());
+          System.out.println(cart.getProductName());
         cartRepository.save(cart);
         return cart;
       }
@@ -81,7 +83,7 @@ public class CartService {
 
 }
 
-    public List<Cart> getCartItems(Integer id) {
+    public List<Cart> getCartItems(String id) {
         return cartRepository.findByUserId(id);
     }
 

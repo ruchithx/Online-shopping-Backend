@@ -17,7 +17,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+    private String userId;
     private float totalPrice;
     private String status;
     private LocalDateTime createdAt;

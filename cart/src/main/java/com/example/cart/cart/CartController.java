@@ -18,14 +18,18 @@ public class CartController {
     }
 
     @GetMapping("/{id}")
-    public List<Cart> getCartItems(@PathVariable Integer id) {
+    public List<Cart> getCartItems(@PathVariable String id) {
         return cartService.getCartItems(id);
     }
 
     @PostMapping("/add")
     public Cart addItem(@RequestBody CartDTO cart){
     System.out.println( "asdfghjkl");
-        System.out.println(cart);
+        System.out.println("Product Name: " + cart.getProductName()); // Debug log
+        System.out.println("fffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        System.out.println("hhhhhhhhhhhhhhh"+cart);
+
+
 //        cartService.addNewItem(cart);
         return cartService.addNewItem(cart);
 

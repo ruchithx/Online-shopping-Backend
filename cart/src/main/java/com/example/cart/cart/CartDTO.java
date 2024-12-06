@@ -2,16 +2,13 @@ package com.example.cart.cart;
 
 public class CartDTO {
 
-    private Integer userId;
+    private String userId;
     private Integer productId;
     private Integer quantity;
     private Double price;
     private String productName;
     private String productImage;
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
 
 
@@ -22,7 +19,7 @@ public class CartDTO {
 
 
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -43,8 +40,11 @@ public class CartDTO {
     }
 
 
+    public void  setProductName(String productName) {
+        this.productName = productName;
+    }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
