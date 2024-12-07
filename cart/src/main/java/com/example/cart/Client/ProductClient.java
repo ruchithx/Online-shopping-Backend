@@ -5,6 +5,6 @@ import org.springframework.web.service.annotation.GetExchange;
 
 public interface ProductClient {
 
-    @GetExchange("http://localhost:8083/api/v1/product/checkquantity/{id}/{quantity}")
+    @GetExchange("http://product-service:8083/api/v1/product/checkquantity/{id}/{quantity}")
     boolean checkProductExist(@PathVariable("id") Long id, @PathVariable("quantity") Integer quantity);
 }

@@ -81,8 +81,15 @@ public class OrderService {
                     .mapToInt(OrderItem::getProductId)
                     .toArray();
 
+            for (int i = 0; i < productIds.length; i++) {
+                System.out.println("++++++++++++++++++++"+ productIds[i] +"+");
+            }
+
+//            System.out.println("++++++++++++++++++++"+ productIds);
+
             // Fetch the product details from the Product service
             List<ProductDTO> products = productClient.getProductById(productIds);
+            System.out.println("++++++++++++++++++++"+ products +"+");
 
             // Map the order items to OrderItemDTO and set the corresponding product details
             List<OrderItemDTO> orderItemDTOs = order.getOrderItems().stream()

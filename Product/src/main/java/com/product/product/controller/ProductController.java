@@ -52,6 +52,7 @@ public class ProductController {
 
     @PostMapping("/getproductsbyids")
     public List<Product> getProductsByIds(@RequestBody List<Integer> productIds) {
+        System.out.println(productIds);
         return productService.getProductsByIds(productIds);
     }
 

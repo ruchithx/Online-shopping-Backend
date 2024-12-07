@@ -26,11 +26,12 @@ import io.restassured.response.Response;
 
 @SpringBootTest
 class CartApplicationTests {
-//	@BeforeClass
-//	public static void setup() {
-//		// Register the plain text parser
-//		RestAssured.registerParser("text/plain", Parser.TEXT);
-//	}
+	@BeforeClass
+	public static void setup() {
+		// Register the plain text parser
+		RestAssured.baseURI = "http://localhost";
+		RestAssured.port = port;
+	}
 
 //	@Test
 //	void shouldGetCartItems() {

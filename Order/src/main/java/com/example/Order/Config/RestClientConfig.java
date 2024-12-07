@@ -12,7 +12,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration
 public class RestClientConfig {
 
-    @Value("http://localhost:8083")
+    @Value("http://product-service:8083")
     private String productUrl;
 
     @Bean

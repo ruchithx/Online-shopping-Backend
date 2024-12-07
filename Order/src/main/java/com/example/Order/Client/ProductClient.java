@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ProductClient {
 
-    @PostExchange("http://localhost:8083/api/v1/product/getproductsbyids")
+    @PostExchange("http://product-service:8083/api/v1/product/getproductsbyids")
     List<ProductDTO> getProductById(@RequestBody int[] id);
 }
