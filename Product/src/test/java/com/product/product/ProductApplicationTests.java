@@ -39,8 +39,8 @@ class ProductServiceApplicationTests {
 				"    \"discount\": 10.0,\n" +
 				"    \"quantityInStock\": 40,\n" +
 				"    \"status\": true,\n" +
-				"    \"categoryId\": 1,\n" +
-				"    \"brandId\": 1,\n" +
+				"    \"categoryId\": 502,\n" +
+				"    \"brandId\": 502,\n" +
 				"    \"mediaUrl\": \"https://res.cloudinary.com/dpk9utvby/image/upload/v1707639801/cld-sample-4.jpg\"\n" +
 				"}";
 
@@ -50,12 +50,10 @@ class ProductServiceApplicationTests {
 				.when()
 				.post("/api/v1/admin/product/addproduct");
 
-		// Log the response
 		System.out.println("Response: " + response.asString());
 
-		// Validate the response
 		response.then()
-				.statusCode(201);  // Ensure the status code is 200 (OK)
+				.statusCode(201);
 	}
 
 	@Test
@@ -70,12 +68,10 @@ class ProductServiceApplicationTests {
 				.when()
 				.post("/api/v1/admin/product/addbrand");
 
-		// Log the response
 		System.out.println("Response: " + response.asString());
 
-		// Validate the response
 		response.then()
-				.statusCode(201);  // Ensure the status code is 200 (OK)
+				.statusCode(201);
 	}
 
 	@Test
@@ -129,7 +125,7 @@ class ProductServiceApplicationTests {
 	@Test
 	void shouldAddImageToProduct() {
 		String jsonBody = "{\n" +
-				"    \"productId\": 1,\n" +
+				"    \"productId\": 602,\n" +
 				"    \"mediaUrl\": \"https://res.cloudinary.com/dpk9utvby/image/upload/v1732350105/organization/n8vznpbavclukknqphzg.png\"\n" +
 				"}";
 
@@ -187,7 +183,7 @@ class ProductServiceApplicationTests {
 
 	@Test
 	void shouldReturnProductById() {
-		int productId = 2;  // Example product ID to fetch
+		int productId = 602;  // Example product ID to fetch
 		String baseUrl = "http://localhost:8083/api/v1/product/getproductbyid/" + productId;
 
 		// Send GET request to the endpoint
@@ -215,10 +211,10 @@ class ProductServiceApplicationTests {
 				.body("createdAt", Matchers.notNullValue())  // Ensure 'createdAt' is not null
 				.body("updatedAt", Matchers.notNullValue())  // Ensure 'updatedAt' is not null
 				.body("mediaUrl", Matchers.startsWith("https://"))  // Validate 'mediaUrl' is a valid URL
-				.body("category.categoryId", Matchers.equalTo(1))  // Validate 'categoryId' in the nested 'category' object
+				.body("category.categoryId", Matchers.equalTo(452))  // Validate 'categoryId' in the nested 'category' object
 				.body("category.categoryName", Matchers.notNullValue())  // Ensure 'categoryName' is not null
 				.body("category.categoryDescription", Matchers.notNullValue())  // Ensure 'categoryDescription' is not null
-				.body("brand.brandId", Matchers.equalTo(1))  // Validate 'brandId' in the nested 'brand' object
+				.body("brand.brandId", Matchers.equalTo(502))  // Validate 'brandId' in the nested 'brand' object
 				.body("brand.brandName", Matchers.notNullValue())  // Ensure 'brandName' is not null
 				.body("sku", Matchers.nullValue());  // Validate 'sku' is null
 	}
@@ -258,8 +254,8 @@ class ProductServiceApplicationTests {
 	@Test
 	void shouldCheckProductQuantity() {
 		// Define the API base URL and test parameters
-		int productId = 2;
-		int quantity = 10;
+		int productId = 602;
+		int quantity = 1;
 		String baseUrl = "http://localhost:8083/api/v1/product/checkquantity/" + productId + "/" + quantity;
 
 		// Send GET request to the endpoint
@@ -288,7 +284,7 @@ class ProductServiceApplicationTests {
 		// Create the request body
 
 		String jsonBody = "{\n" +
-				"    \"productId\": 2,\n" +
+				"    \"productId\":602,\n" +
 				"    \"quantity\": 40\n" +
 				"}";
 
