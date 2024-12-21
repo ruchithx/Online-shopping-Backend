@@ -1,0 +1,65 @@
+services:
+  product-service:
+    build:
+      context: ./Product
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-muddy-mode-a1kk1nzo.ap-southeast-1.aws.neon.tech/product
+      SPRING_DATASOURCE_USERNAME: product_owner
+      SPRING_DATASOURCE_PASSWORD: iGSPNEk0az9y
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+
+  order-service:
+    build:
+      context: ./Order
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_APPLICATION_NAME: Order
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-plain-cloud-a5o6b97j.us-east-2.aws.neon.tech/neondb?user=neondb_owner&password=VXF7geh1GZaD&sslmode=require
+      SPRING_DATASOURCE_USERNAME: neondb_owner
+      SPRING_DATASOURCE_PASSWORD: VXF7geh1GZaD
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+
+  cart-service:
+    build:
+      context: ./cart
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ep-autumn-math-a5lsmm1f.us-east-2.aws.neon.tech/cart_database
+      SPRING_DATASOURCE_USERNAME: neondb_owner
+      SPRING_DATASOURCE_PASSWORD: is3uvcoHrG6A
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: 10
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      PRODUCT_URL: http://localhost:8083
+      SPRING_APPLICATION_NAME: cart
+
+  apigateway:
+    build:
+      context: ./Apigateway
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      SPRING_APPLICATION_NAME: apigateway
+      SERVER_PORT: 9000
+      PRODUCT_SERVICE_URL: http://localhost:8083
+      ORDER_SERVICE_URL: http://localhost:8081
+      INVENTORY_SERVICE_URL: http://localhost:8082
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8181/realms/store
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://localhost:8181/realms/store/protocol/openid-connect/certs
+      SPRING_SECURITY_OAUTH2_AUTHORIZATIONSERVER_CLIENT_CLIENT_ID: storeclient
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_CLOUD_GATEWAY: DEBUG
