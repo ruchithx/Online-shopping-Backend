@@ -409,10 +409,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [ ] Implement rate limiting
 - [ ] Add comprehensive integration tests
 
-## 📞 Support
-
-For support, email [your-email@example.com] or create an issue in the repository.
-
----
-
 **Happy Coding! 🚀**
